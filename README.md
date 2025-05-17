@@ -11,9 +11,8 @@ Here, we will explore the steps that need to be applied to obtain a cleansed ver
 
 Let's inspect the initial rows to analyze the data in its original format:
 
-sql
-SELECT * FROM club_member_info 
-LIMIT 10;
+```SELECT * FROM club_member_info 
+   LIMIT 10;
 |full_name|age|martial_status|email|phone|full_address|job_title|membership_date|
 |---------|---|--------------|-----|-----|------------|---------|---------------|
 |addie lush|40|married|alush0@shutterfly.com|254-389-8708|3226 Eastlawn Pass,Temple,Texas|Assistant Professor|7/31/2013|
@@ -30,7 +29,7 @@ LIMIT 10;
 Step 1: Make a copy of your table
 Let's generate a new table where we can manipulate and restructure the data without modifying the original dataset.
 
-CREATE TABLE club_member_info_cleaned (
+```CREATE TABLE club_member_info_cleaned (
     full_name VARCHAR(50),
     age INTEGER,
     marital_status VARCHAR(50),
