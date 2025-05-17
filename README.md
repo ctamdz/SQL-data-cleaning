@@ -10,8 +10,8 @@ Here, we will explore the steps that need to be applied to obtain a cleansed ver
 ## Initial data overview
 
 Let's inspect the initial rows to analyze the data in its original format:
-
-```SELECT * FROM club_member_info 
+```
+   SELECT * FROM club_member_info 
    LIMIT 10;
 |full_name|age|martial_status|email|phone|full_address|job_title|membership_date|
 |---------|---|--------------|-----|-----|------------|---------|---------------|
@@ -29,7 +29,7 @@ Let's inspect the initial rows to analyze the data in its original format:
 Step 1: Make a copy of your table
 Let's generate a new table where we can manipulate and restructure the data without modifying the original dataset.
 
-```CREATE TABLE club_member_info_cleaned (
+CREATE TABLE club_member_info_cleaned (
     full_name VARCHAR(50),
     age INTEGER,
     marital_status VARCHAR(50),
