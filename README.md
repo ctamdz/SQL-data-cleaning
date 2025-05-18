@@ -11,8 +11,10 @@ Here, we will explore the steps that need to be applied to obtain a cleansed ver
 
 Let's inspect the initial rows to analyze the data in its original format:
 ```
-   SELECT * FROM club_member_info 
+   SELECT * 
+   FROM club_member_info 
    LIMIT 10;
+   ```
 |full_name|age|martial_status|email|phone|full_address|job_title|membership_date|
 |---------|---|--------------|-----|-----|------------|---------|---------------|
 |addie lush|40|married|alush0@shutterfly.com|254-389-8708|3226 Eastlawn Pass,Temple,Texas|Assistant Professor|7/31/2013|
@@ -28,8 +30,8 @@ Let's inspect the initial rows to analyze the data in its original format:
 
 Step 1: Make a copy of your table
 Let's generate a new table where we can manipulate and restructure the data without modifying the original dataset.
-
-CREATE TABLE club_member_info_cleaned (
+```
+    CREATE TABLE club_member_info_cleaned (
     full_name VARCHAR(50),
     age INTEGER,
     marital_status VARCHAR(50),
@@ -39,12 +41,13 @@ CREATE TABLE club_member_info_cleaned (
     job_title VARCHAR(50),
     membership_date VARCHAR(50)
 );
-
+```
 
 Copy all values from the original table
+```
 INSERT INTO club_member_info_cleaned
 SELECT * FROM club_member_info;
-
+```
 Step 2: Clean data and document it
 In this step, we are going to clean the data and document each transformation.
 
@@ -57,24 +60,28 @@ Age values that are outside a realistic human range (e.g., < 0 or > 120)
 Leading and trailing whitespaces in text columns
 1. Clean and standardize text fields
 We will remove leading/trailing whitespaces and convert some fields to UPPERCASE for consistency.
+```
 UPDATE club_member_info_cleaned
 SET full_name = UPPER(TRIM(full_name)),
     job_title = UPPER(TRIM(job_title)),
     email = TRIM(email),
     full_address = TRIM(full_address);
-
+```
 
 2. Remove rows with unrealistic age values
+```
 DELETE FROM club_member_info_cleaned
 WHERE age NOT BETWEEN 0 AND 120;
-
+```
 Preview cleaned data
 After cleaning, we check the dataset:
+```
 SELECT *
 FROM club_member_info_cleaned
 LIMIT 15;
-
+```
 Result preview:
+
 |full_name|age|martial_status|email|phone|full_address|job_title|membership_date|
 |---------|---|--------------|-----|-----|------------|---------|---------------|
 |ADDIE LUSH|40|married|alush0@shutterfly.com|254-389-8708|3226 Eastlawn Pass,Temple,Texas|ASSISTANT PROFESSOR|7/31/2013|
