@@ -44,7 +44,7 @@ Let's generate a new table where we can manipulate and restructure the data with
 ```
 
 Copy all values from the original table
-```
+```sql
 INSERT INTO club_member_info_cleaned
 SELECT * FROM club_member_info;
 ```
@@ -60,7 +60,7 @@ Age values that are outside a realistic human range (e.g., < 0 or > 120)
 Leading and trailing whitespaces in text columns
 1. Clean and standardize text fields
 We will remove leading/trailing whitespaces and convert some fields to UPPERCASE for consistency.
-```
+```sql
 UPDATE club_member_info_cleaned
 SET full_name = UPPER(TRIM(full_name)),
     job_title = UPPER(TRIM(job_title)),
@@ -69,13 +69,13 @@ SET full_name = UPPER(TRIM(full_name)),
 ```
 
 2. Remove rows with unrealistic age values
-```
+```sql
 DELETE FROM club_member_info_cleaned
 WHERE age NOT BETWEEN 0 AND 120;
 ```
 Preview cleaned data
 After cleaning, we check the dataset:
-```
+```sql
 SELECT *
 FROM club_member_info_cleaned
 LIMIT 15;
