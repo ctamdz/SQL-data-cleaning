@@ -99,3 +99,30 @@ Result preview:
 |MANDIE OLWEN|29|single|molwenc@phoca.cz|612-914-2658|61 Blue Bill Park Plaza,Minneapolis,Minnesota|BUSINESS SYSTEMS DEVELOPMENT ANALYST|6/16/2019|
 |EVANIA CADWALADR|32|single|ecadwaladrd@patch.com|702-364-0009|98965 Riverside Terrace,Santa Barbara,California|ACCOUNTING ASSISTANT I|3/18/2017|
 |KARLENE O'MAILEY|48|single|komaileye@ftc.gov|608-659-4566|45583 Spenser Junction,Madison,Wisconsin|PROGRAMMER II|7/16/2021|
+
+### . Detect and remove duplicate records
+
+To ensure data consistency, we first checked for duplicates based on `full_name` and `email`. These are two fields that should uniquely identify each person in our dataset.
+
+#### 🔍 Check for duplicates:
+
+```sql
+SELECT full_name, email, COUNT(*) AS duplicated_count
+FROM club_member_info_cleaned
+GROUP BY full_name, email
+HAVING COUNT(*) > 1;
+```
+Result preview:
+|full_name|email|duplicated_count|
+|---------|-----|----------------|
+|ERWIN HUXTER|ehuxterm0@marketwatch.com|3|
+|GARRICK REGLAR|greglar4r@answers.com|2|
+|GEORGES PREWETT|gprewettfl@mac.com|2|
+|MADDIE MORRALLEE|mmorralleemj@wordpress.com|2|
+|NICKI FILLISKIRK|nfilliskirkd5@newsvine.com|2|
+|OBED MACCAUGHEN|omaccaughen1o@naver.com|2|
+|SEYMOUR LAMBLE|slamble81@amazon.co.uk|2|
+|TAMQRAH DUNKERSLEY|tdunkersley8u@dedecms.com|2|
+
+
+
