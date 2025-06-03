@@ -100,7 +100,7 @@ Result preview:
 |EVANIA CADWALADR|32|single|ecadwaladrd@patch.com|702-364-0009|98965 Riverside Terrace,Santa Barbara,California|ACCOUNTING ASSISTANT I|3/18/2017|
 |KARLENE O'MAILEY|48|single|komaileye@ftc.gov|608-659-4566|45583 Spenser Junction,Madison,Wisconsin|PROGRAMMER II|7/16/2021|
 
-### . Detect and remove duplicate records
+### 3. Detect duplicate 
 
 To ensure data consistency, we first checked for duplicates based on `full_name` and `email`. These are two fields that should uniquely identify each person in our dataset.
 
@@ -123,6 +123,41 @@ Result preview:
 |OBED MACCAUGHEN|omaccaughen1o@naver.com|2|
 |SEYMOUR LAMBLE|slamble81@amazon.co.uk|2|
 |TAMQRAH DUNKERSLEY|tdunkersley8u@dedecms.com|2|
+
+### 4. Remove duplicate records
+
+After detecting duplicate records based on the `full_name` and `email` columns, we proceeded to remove them.
+
+Since our table does not have a unique `id` column, we used SQLite's internal `ROWID` to identify and delete duplicates.
+
+We decided to keep only the **most recent record** for each `full_name` and `email` pair — that is, the record with the **highest `ROWID`** — and delete all others.
+
+#### 🧹 SQL to remove duplicates:
+
+```sql
+DELETE FROM club_member_info_cleaned
+WHERE ROWID NOT IN (
+    SELECT MAX(ROWID)
+    FROM club_member_info_cleaned
+    GROUP BY full_name, email
+);
+
+```
+### ✅ Final check: Ensure no duplicate records remain
+
+After removing duplicate records based on `full_name` and `email`, we run a final check to confirm that the dataset is now clean.
+
+```sql
+SELECT full_name, email, COUNT(*) AS duplicated_count
+FROM club_member_info_cleaned
+GROUP BY full_name, email
+HAVING COUNT(*) > 1;
+```
+Result preview:
+|full_name|email|duplicated_count|
+|---------|-----|----------------|
+
+
 
 
 
